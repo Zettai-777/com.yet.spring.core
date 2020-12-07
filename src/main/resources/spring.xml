@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.2.xsd"
+>
+    <import resource="loggers.xml"/>
+    <!--  Application  -->
+    <bean id="app" class="apps.App">
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="cacheFileEventLogger"/>
+        <constructor-arg ref="loggersMap"/>
+    </bean>
+
+    <!-- loggersMap   -->
+    <util:map id="loggersMap">
+        <entry key="INFO"
+               value-ref="consoleEventLogger"/>
+        <entry key="ERROR"
+               value-ref="combinedEventLogger"/>
+    </util:map>
+    <!-- CLIENT   -->
+    <bean id="client" class="beans.Client">
+        <constructor-arg value="1"/>
+        <constructor-arg value="John Snow"/>
+        <property name="greeting" value="Hello, my little friend =)"/>
+    </bean>
+
+
+</beans>
